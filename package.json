@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.101",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "firebase": "^9.1.1",
     "react": "^18.3.1",
@@ -21,7 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"npx react-scripts start\" \"npx json-server --port 3001 db.json\"",
+    "start": "react-scripts start",
+    "server": "json-server --port 3001 db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

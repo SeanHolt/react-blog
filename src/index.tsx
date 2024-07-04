@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   createBrowserRouter,
   Outlet,
@@ -13,6 +13,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import { store } from './store'
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from './components'
+import BlogService from './services/BlogService';
 
 const router = createBrowserRouter([
   {
@@ -50,15 +51,16 @@ const router = createBrowserRouter([
       },
       {
         path: "authors/page?/:page?",
-        element: <Authors />
+        Component() {
+          return <Authors />
+        }
       },
       {
         path: "blog/:id",
         Component() {
-          let params = useParams()
           return (
             <>
-              <Blog id={params.id} />
+              <Blog />
             </>
           )
         }

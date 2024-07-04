@@ -20,6 +20,12 @@ class BlogDataService {
     async getProfiles() {
         return await fetch('http://localhost:3001/profiles').then(response => response.json()).then(response => response);
     }
+    async getCommentsByBlog(id: number) {
+        return await fetch('http://localhost:3001/comments?blogsId=' + id + '&_embed=profile').then(response => response.json()).then(response => {
+            console.log('getCommentsByBlog : ', response)
+            return response
+        })
+    }
 }
 const BlogService = new BlogDataService()
 export default BlogService
