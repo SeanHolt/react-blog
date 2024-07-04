@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   createBrowserRouter,
   Outlet,
@@ -11,14 +11,15 @@ import * as ReactDOMClient from "react-dom/client";
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 import { Provider } from 'react-redux';
-import { store } from './store'
+import { setPage, store, useAppDispatch } from './store'
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from './components'
-import BlogService from './services/BlogService';
 
 const router = createBrowserRouter([
   {
     path: '/',
     Component() {
+      const dispatch = useAppDispatch()
+      dispatch(setPage(1))
       let navigation = useNavigation()
       return (
       <>

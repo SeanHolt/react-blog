@@ -77,10 +77,12 @@ export function BlogPosts(props: BlogProps) {
             { loading ? <h1>Loading...</h1> : error ? <h1 className="error">ERROR FOUND!</h1> : 
             <>
                 {blogs.map((blog: Blog) => (
-                <div key={blog.id}>
-                    <div className="blog-post mt-22">
-                        <div className="blog-title"><h3><Link to={`/blog/${blog.id}`}>{blog.title}</Link></h3></div>
-                        <div className="blog-author"><Link to={`/author/${blog.profile?.id}`}>{blog.profile?.name}</Link></div>
+                <div key={blog.id} className="card mb-2">
+                    <div className="blog-post card-body">
+                        <div className="row">
+                            <div className="col-6 blog-title card-text"><Link to={`/blog/${blog.id}`}>{blog.title}</Link></div>
+                            <div className="col-6 blog-author card-text">By <Link to={`/author/${blog.profile?.id}`}>{blog.profile?.name || "error"}</Link></div>
+                        </div>
                     </div>
                 </div>
             ))}

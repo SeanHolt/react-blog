@@ -15,7 +15,7 @@ export function Blog() {
 
   useEffect(() => {
     retrieveBlogs(params, perPage, currentPage, setBlogs, setLoading, setError)
-  }, [params, perPage, currentPage])
+  }, [])
   const blog = blogs[0]
   console.log('blog = ', blog)
   return (

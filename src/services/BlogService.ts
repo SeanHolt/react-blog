@@ -1,5 +1,6 @@
 
 class BlogDataService {
+    commentsCache: any[] = []
     async getAll(perPage: number = 10, currentPage: number = 1) {
         const url = `http://localhost:3001/blogs?_page=${currentPage}&_limit=${perPage}&_embed=profiles`
         console.log('url = ', url)
@@ -21,8 +22,12 @@ class BlogDataService {
         return await fetch('http://localhost:3001/profiles').then(response => response.json()).then(response => response);
     }
     async getCommentsByBlog(id: number) {
+        if (this.commentsCache[id] && Array.isArray(this.commentsCache[id])) {
+            return this.commentsCache[id]
+        }
         return await fetch('http://localhost:3001/comments?blogsId=' + id + '&_embed=profile').then(response => response.json()).then(response => {
             console.log('getCommentsByBlog : ', response)
+            this.commentsCache[id] = response
             return response
         })
     }
