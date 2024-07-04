@@ -28,8 +28,9 @@ export function Nav(): React.ReactElement {
                             <li className="nav-item">
                                 <button className="nav-link" onClick={() => {
                                     auth.signOut().then(() => {
-                                    redirect("/")
-                                })}}>Logout</button>
+                                        redirect("/")
+                                    })
+                                }}>Logout</button>
                             </li>
                         }
                     </ul>

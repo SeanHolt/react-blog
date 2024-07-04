@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { selectCurrentPage, selectPerPage } from "../store"
 import { BlogProps, retrieveBlogs, Blog as BlogItem } from "./BlogPosts"
+import { Comments } from "./Comments"
 
 export function Blog(params: BlogProps) {
     const currentPage = useSelector(selectCurrentPage)
@@ -25,7 +26,8 @@ export function Blog(params: BlogProps) {
                   { !Array.isArray(blog.profile) ? <div className="blog-author"><Link to={`/author/${blog.profile?.id}`}>{blog.profile?.name}</Link></div> : <p className="error">Error</p>}
                   <div className="blog-content">{blog.content}</div>
               </div>
-          </div>
+              <Comments id={blog.id} />
+            </div>
      : null}
       </>
     )
