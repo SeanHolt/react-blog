@@ -10,8 +10,8 @@ import {
 import * as ReactDOMClient from "react-dom/client";
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
-import { Provider, useSelector } from 'react-redux';
-import { selectTotal, setPage, setTotal, store, useAppDispatch } from './store'
+import { Provider } from 'react-redux';
+import { setPage, setTotal, store, useAppDispatch } from './store'
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from './components'
 import BlogService from './services/BlogService';
 import { About } from './components/About';
