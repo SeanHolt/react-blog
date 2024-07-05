@@ -2,22 +2,26 @@ import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import { selectCurrentPage, selectPerPage } from "../store"
-import { retrieveBlogs, Blog as BlogItem } from "./BlogPosts"
+import { retrieveBlogs, Blog as BlogItem, RDS } from "./BlogPosts"
 import { Comments } from "./Comments"
 
+export function useBlogStates(): [ BlogItem[], RDS<BlogItem[]>, boolean, RDS<boolean>, boolean, RDS<boolean> ] {
+    const [ blogs, setBlogs] = React.useState<BlogItem[]>([])
+    const [ loading, setLoading] = React.useState<boolean>(true)
+    const [ error, setError ] = React.useState<boolean>(false)
+    return [ blogs, setBlogs, loading, setLoading, error, setError ]
+}
 export function Blog() {
   let params = useParams()
   const currentPage = useSelector(selectCurrentPage)
   const perPage = useSelector(selectPerPage)
-  const [ blogs, setBlogs] = React.useState<BlogItem[]>([])
-  const [ loading, setLoading] = React.useState<boolean>(true)
-  const [ error, setError ] = React.useState<boolean>(false)
+  const [ blogs, setBlogs, loading, setLoading, error, setError ] = useBlogStates()
 
   useEffect(() => {
     retrieveBlogs(params, perPage, currentPage, setBlogs, setLoading, setError)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const blog = blogs[0]
-  console.log('blog = ', blog)
   return (
     <>
       {!loading && !error ? 

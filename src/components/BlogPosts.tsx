@@ -6,6 +6,7 @@ import '../App.css';
 import { Pagination } from './Pagination';
 import { useSelector } from 'react-redux';
 import { selectCurrentPage, selectPerPage } from '../store';
+import { useBlogStates } from './Blog';
 
 export type Blog = {
     id: number;
@@ -21,13 +22,15 @@ export type BlogProps = {
     id?: string;
     author?: string;
 }
+export type RDS<T> = React.Dispatch<React.SetStateAction<T>>
+
 export const retrieveBlogs = (
     props: BlogProps,
     perPage: number,
     currentPage: number,
-    setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    setError: React.Dispatch<React.SetStateAction<boolean>>,
+    setBlogs: RDS<Blog[]>,
+    setLoading: RDS<boolean>,
+    setError: RDS<boolean>,
 ) => {
     if (props.author && props.author !== null) {
         BlogService.getByProfileId(props.author).then((response: any) => {
@@ -64,13 +67,11 @@ export const retrieveBlogs = (
 export function BlogPosts(props: BlogProps) {
     const currentPage = useSelector(selectCurrentPage)
     const perPage = useSelector(selectPerPage)
-    const [ blogs, setBlogs] = React.useState<Blog[]>([])
-    const [ loading, setLoading] = React.useState<boolean>(true)
-    const [ error, setError ] = React.useState<boolean>(false)
-
+    const [ blogs, setBlogs, loading, setLoading, error, setError ] = useBlogStates()
+    
     React.useEffect(() => {
-        console.log('currentPage = ', currentPage, perPage)
         retrieveBlogs(props, perPage, currentPage, setBlogs, setLoading, setError)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props, perPage, currentPage])
     return (
         <>

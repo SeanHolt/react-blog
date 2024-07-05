@@ -7,7 +7,10 @@ type CommentItem = {
     title: string;
     profilesId: number;
     blogsId: number;
-    profile: [];
+    profile?: {
+        id: number;
+        name: string
+    }
 }
 export function Comments() {
     const props = useParams()
@@ -18,12 +21,17 @@ export function Comments() {
                 setComments(response)
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (<>
-        <p>Comments</p>
+        <h4 className="mt-4">Comments</h4>
         {comments.map((comm: CommentItem) => (
-                <p>{comm.title}</p>
-            )
-        )}
+                <div key={comm.id} className="card w-100">
+                    <div className="d-flex p-2">
+                        <div className="card-text flex-fill">{comm.title}</div>
+                        <div className="card-text flex-fill">{comm.profile?.name}</div>
+                    </div>
+                </div>
+            ))}
     </>)
 }
