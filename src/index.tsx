@@ -28,12 +28,11 @@ const router = createBrowserRouter([
     Component() {
       const dispatch = useAppDispatch()
       dispatch(setPage(1))
-      const totalBlogs = useSelector(selectTotal)
       useEffect(() => {
         BlogService.getAll(1000, 1).then((response) => {
           dispatch(setTotal(response.length))
         })
-      }, [totalBlogs, dispatch])
+      }, [dispatch])
       let navigation = useNavigation()
       return (
       <>

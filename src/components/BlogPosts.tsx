@@ -33,7 +33,7 @@ export const retrieveBlogs = (
     setError: RDS<boolean>,
 ) => {
     if (props.author && props.author !== null) {
-        BlogService.getByProfileById(props.author).then((response: any) => {
+        BlogService.getByProfileId(parseInt(props.author)).then((response: any) => {
             setBlogs(response)
             setLoading(false)
         }).catch(error => {
