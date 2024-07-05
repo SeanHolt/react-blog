@@ -1,5 +1,6 @@
 import React from "react";
-import { nextPage, setPage, prevPage, useAppDispatch } from "../store";
+import { nextPage, setPage, prevPage, useAppDispatch, selectTotal, selectPerPage } from "../store";
+import { useSelector } from "react-redux";
 
 type PaginationProps = {
     baseUrl: string;
@@ -11,7 +12,9 @@ type PaginationState = {}
 export function Pagination(props: PaginationProps, state: PaginationState) {
     const dispatch = useAppDispatch()
     let items = []
-    for (let i = 0; i <= Math.floor(props.total); i++) {
+    const [total, per] = [useSelector(selectTotal), useSelector(selectPerPage)]
+    const pages = Math.floor(total / per)
+    for (let i = 0; i <= pages; i++) {
         items.push(i);
     }
     return (

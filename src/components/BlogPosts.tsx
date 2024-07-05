@@ -33,7 +33,7 @@ export const retrieveBlogs = (
     setError: RDS<boolean>,
 ) => {
     if (props.author && props.author !== null) {
-        BlogService.getByProfileId(props.author).then((response: any) => {
+        BlogService.getByProfileById(props.author).then((response: any) => {
             setBlogs(response)
             setLoading(false)
         }).catch(error => {
@@ -67,7 +67,7 @@ export const retrieveBlogs = (
 export function BlogPosts(props: BlogProps) {
     const currentPage = useSelector(selectCurrentPage)
     const perPage = useSelector(selectPerPage)
-    const [ blogs, setBlogs, loading, setLoading, error, setError ] = useBlogStates()
+    const { blogs, setBlogs, loading, setLoading, error, setError } = useBlogStates()
     
     React.useEffect(() => {
         retrieveBlogs(props, perPage, currentPage, setBlogs, setLoading, setError)

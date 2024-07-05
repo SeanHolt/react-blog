@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   createBrowserRouter,
   Outlet,
@@ -10,16 +10,30 @@ import {
 import * as ReactDOMClient from "react-dom/client";
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
-import { Provider } from 'react-redux';
-import { setPage, store, useAppDispatch } from './store'
+import { Provider, useSelector } from 'react-redux';
+import { selectTotal, setPage, setTotal, store, useAppDispatch } from './store'
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from './components'
+import BlogService from './services/BlogService';
+import { About } from './components/About';
 
+const routes = [
+  { path: "about", element: <About />},
+  { path: "login", element: <Login />},
+  { path: "authors/page?/:page?", element: <Authors />},
+  { path: "blog/:id", element: <Blog />}
+]
 const router = createBrowserRouter([
   {
     path: '/',
     Component() {
       const dispatch = useAppDispatch()
       dispatch(setPage(1))
+      const totalBlogs = useSelector(selectTotal)
+      useEffect(() => {
+        BlogService.getAll(1000, 1).then((response) => {
+          dispatch(setTotal(response.length))
+        })
+      }, [totalBlogs, dispatch])
       let navigation = useNavigation()
       return (
       <>
@@ -39,31 +53,12 @@ const router = createBrowserRouter([
         index: true,
         element: <BlogPosts />
       },
-      {
-        path: "login",
-        element: <Login />
-      },
+      ...routes,
       {
         path: "author/:id",
         Component() {
           let params = useParams()
           return (<><BlogPosts author={params.id} /></>)
-        }
-      },
-      {
-        path: "authors/page?/:page?",
-        Component() {
-          return <Authors />
-        }
-      },
-      {
-        path: "blog/:id",
-        Component() {
-          return (
-            <>
-              <Blog />
-            </>
-          )
         }
       },
     ]

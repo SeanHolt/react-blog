@@ -7,7 +7,7 @@ export function Footer() {
           <div className="col">
             <div className="vstack">
               <div className="">Static</div>
-              <div className=""><Link to="/" className="text-white">About</Link></div>
+              <div className=""><Link to="/about" className="text-white">About</Link></div>
               <div className=""><Link to="/" className="text-white">Sitemap</Link></div>
               <div className=""><Link to="/" className="text-white">Contact</Link></div>
               <div className=""><Link to="/" className="text-white">FAQ</Link></div>

@@ -10,7 +10,6 @@ export function Authors() {
     const [ authors, setAuthors ] = useState([])
     useEffect(() => {
       BlogService.getProfiles().then((response) => {
-        console.log('authors = ', response)
         setAuthors(response)
       })
     }, [])
