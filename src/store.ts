@@ -49,15 +49,14 @@ export const store = configureStore({
 })
 export const { setPage, prevPage, nextPage, setAuthor, setBlogId, setTotal } = appStore.actions
 export type RootState = ReturnType<typeof store.getState>
-export const selectCurrentPage = (state: RootState) => {
-    return state.app.currentPage
-}
-export const selectPerPage = (state: RootState) => {
-    return state.app.perPage
-}
+
+export const selectCurrentPage = (state: RootState) => state.app.currentPage
+export const selectPerPage = (state: RootState) => state.app.perPage
 export const selectAuthor = (state: RootState) => state.app.author
 export const selectBlogId = (state: RootState) => state.app.blogId
 export const selectTotal = (state: RootState) => state.app.totalBlogs
+
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+
 export default appStore.reducer

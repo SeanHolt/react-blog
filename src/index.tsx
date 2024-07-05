@@ -11,7 +11,7 @@ import * as ReactDOMClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import { Provider } from "react-redux";
-import { setPage, setTotal, store, useAppDispatch } from "./store";
+import { setTotal, store, useAppDispatch } from "./store";
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from "./components";
 import BlogService from "./services/BlogService";
 import { About } from "./components/About";
@@ -28,7 +28,7 @@ const router = createHashRouter([
     path: "/",
     Component() {
       const dispatch = useAppDispatch();
-      dispatch(setPage(1));
+
       useEffect(() => {
         BlogService.getAll(1000, 1).then((response) => {
           dispatch(setTotal(response.length));

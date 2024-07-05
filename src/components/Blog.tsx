@@ -26,7 +26,7 @@ export function Blog() {
   const { blogs, setBlogs, loading, setLoading, error, setError } = useBlogStates()
 
   useEffect(() => {
-    retrieveBlogs(params, perPage, currentPage, setBlogs, setLoading, setError)
+    retrieveBlogs(params, perPage, currentPage, 15, setBlogs, setLoading, setError)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const blog = blogs[0]
@@ -35,8 +35,8 @@ export function Blog() {
       {!loading && !error ? 
         <div key={blog.id}>
             <div className="blog-post mt-22">
-                <div className="blog-title"><h3><Link to={`/blog/${blog.id}`}>{blog.title}</Link></h3></div>
-                { !Array.isArray(blog.profile) ? <div className="blog-author"><Link to={`/author/${blog.profile?.id}`}>{blog.profile?.name}</Link></div> : <p className="error">Error</p>}
+                <div className="blog-title"><h3>{blog.title}</h3></div>
+                { blog.profile ? <div className="blog-author">By <Link to={`/author/${blog.profile?.id}`}>{blog.profile?.name}</Link></div> : <p className="error">Error</p>}
                 <div className="blog-content">{blog.content}</div>
             </div>
             <Comments />

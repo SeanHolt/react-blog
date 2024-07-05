@@ -11,11 +11,11 @@ import { useBlogStates } from './Blog';
 export type Blog = {
     id: number;
     title: string;
-    author: number;
     content: string;
+    profileId: number;
     profile?: {
-        id: number;
-        name: string
+        id?: number;
+        name?: string
     }
 }
 export type BlogProps = {
@@ -28,6 +28,7 @@ export const retrieveBlogs = (
     props: BlogProps,
     perPage: number,
     currentPage: number,
+    totalBlogs: number = 15,
     setBlogs: RDS<Blog[]>,
     setLoading: RDS<boolean>,
     setError: RDS<boolean>,
@@ -52,7 +53,7 @@ export const retrieveBlogs = (
                 setError(true)
             })
         } else {
-            BlogService.getAll(perPage, currentPage).then((response: any) => {
+            BlogService.getAll(perPage, currentPage, totalBlogs).then((response: any) => {
                 setBlogs(response)
                 setLoading(false)
             }).catch(error => {
@@ -70,7 +71,7 @@ export function BlogPosts(props: BlogProps) {
     const { blogs, setBlogs, loading, setLoading, error, setError } = useBlogStates()
     
     React.useEffect(() => {
-        retrieveBlogs(props, perPage, currentPage, setBlogs, setLoading, setError)
+        retrieveBlogs(props, perPage, currentPage, 15, setBlogs, setLoading, setError)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props, perPage, currentPage])
     return (
