@@ -11,7 +11,7 @@ export function Nav(): React.ReactElement {
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <a className="navbar-brand" href="/">
-                <img src={img} alt="brand" />
+                <img src={img} alt="brand" width="30" height="21" />
             </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
