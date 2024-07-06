@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import { BlogItem } from "../components";
-import { selectPerPage } from "../store";
 
 interface Comment {
   profile?: Profile;
