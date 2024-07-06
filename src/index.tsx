@@ -13,7 +13,7 @@ import "./App.css";
 import { Provider } from "react-redux";
 import { setTotal, store, useAppDispatch } from "./store";
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from "./components";
-import BlogService from "./services/BlogService";
+import { BlogService } from "./services/BlogService";
 import { About } from "./components/About";
 
 const routes = [

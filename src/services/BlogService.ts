@@ -129,5 +129,4 @@ class BlogDataService {
         })
     }
 }
-const BlogService = new BlogDataService()
-export default BlogService
+export const BlogService = new BlogDataService()

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BlogService from "../services/BlogService";
+import { BlogService } from "../services/BlogService";
 import { useParams } from "react-router-dom";
 
 type CommentItem = {

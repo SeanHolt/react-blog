@@ -8,8 +8,7 @@ type PaginationProps = {
     perPage: number | string;
     total: number;
 }
-type PaginationState = {}
-export function Pagination(props: PaginationProps, state: PaginationState) {
+export function Pagination(props: PaginationProps) {
     const dispatch = useAppDispatch()
     let items = []
     const [total, per] = [useSelector(selectTotal), useSelector(selectPerPage)]
@@ -30,9 +29,9 @@ export function Pagination(props: PaginationProps, state: PaginationState) {
                         </li>
                     )
                 })}
-                <li key="next" className="page-item">
+                {pages < Math.floor(total / per) ? <li key="next" className="page-item">
                     <button className="page-link" onClick={() => dispatch(nextPage(2))}>Next</button>
-                </li>
+                </li> : null}
             </ul>
         </nav>
     )
