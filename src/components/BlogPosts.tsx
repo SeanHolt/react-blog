@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { BlogService } from "../services/BlogService";
-import "bootstrap/dist/css/bootstrap.css";
-import "../App.css";
 import { Pagination } from "./Pagination";
 import { useSelector } from "react-redux";
 import { selectCurrentPage, selectPerPage } from "../store";
@@ -35,7 +33,7 @@ export const retrieveBlogs = (
 ) => {
   if (props.author && props.author !== null) {
     BlogService.getByProfileId(parseInt(props.author), currentPage, perPage)
-      .then((response: any) => {
+      .then((response: Blog[]) => {
         setBlogs(response);
         setLoading(false);
       })
@@ -47,7 +45,7 @@ export const retrieveBlogs = (
   } else {
     if (props.id && props.id !== null) {
       BlogService.getOne(props.id)
-        .then((response: any) => {
+        .then((response: Blog[]) => {
           setBlogs(response);
           setLoading(false);
         })
@@ -58,7 +56,7 @@ export const retrieveBlogs = (
         });
     } else {
       BlogService.getAll(perPage, currentPage, totalBlogs)
-        .then((response: any) => {
+        .then((response: Blog[]) => {
           setBlogs(response);
           setLoading(false);
         })
