@@ -34,7 +34,7 @@ export const retrieveBlogs = (
   setError: RDS<boolean>
 ) => {
   if (props.author && props.author !== null) {
-    BlogService.getByProfileId(parseInt(props.author))
+    BlogService.getByProfileId(parseInt(props.author), currentPage, perPage)
       .then((response: any) => {
         setBlogs(response);
         setLoading(false);

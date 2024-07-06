@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import { BlogItem } from "../components";
+import { selectPerPage } from "../store";
 
 interface Comment {
   profile?: Profile;
@@ -218,7 +220,7 @@ class BlogDataService {
       return allData.profiles[0];
     }
   }
-  async getByProfileId(id?: number) {
+  async getByProfileId(id: number, currentPage: number, perPage: number) {
     if (allData.blogs) {
       let results = [];
       for (let i = 0; i < allData.blogs.length; i++) {
@@ -226,7 +228,8 @@ class BlogDataService {
           results.push(allData.blogs[i]);
         }
       }
-      return results;
+      const start = Math.max(0, perPage * currentPage - perPage);
+      return results.slice(start, perPage + start);
     }
     if (allData.profiles) return allData.profiles[0];
     return await fetch(
