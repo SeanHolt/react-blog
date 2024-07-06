@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BlogService, Profile } from "../services/BlogService";
+import { BlogService } from "../services/BlogService";
 
 export interface Author {
   id: number;
