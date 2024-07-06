@@ -88,7 +88,7 @@ export function BlogPosts(props: BlogProps) {
                     </div>
                 </div>
             ))}
-            <Pagination baseUrl="/" start={currentPage || 0} perPage={perPage || 10} total={blogs.length / (perPage || 10)} />
+            <Pagination />
             </>
             }
         </>
