@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { auth, useAuthState } from "../firebase";
+import img from '../logo.svg'
 
 export function Nav(): React.ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -10,7 +11,7 @@ export function Nav(): React.ReactElement {
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <a className="navbar-brand" href="/">
-                <img src="/public/logo192.png" alt="brand" />
+                <img src={img} alt="brand" />
             </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
