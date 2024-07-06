@@ -1,17 +1,18 @@
 import { BlogItem } from "../components";
+import { Author } from "../components/Authors";
 
-interface Comment {
+export interface Comment {
   profile?: Profile;
   id: number;
   title: string;
   profileId: number;
   blogId: number;
 }
-interface Profile {
+export interface Profile {
   id?: number;
   name?: string;
 }
-const allData: { blogs: BlogItem[]; comments: Comment[]; profiles: Profile[] } =
+const allData: { blogs: BlogItem[]; comments: Comment[]; profiles: Author[] } =
   {
     blogs: [
       {
@@ -171,20 +172,7 @@ class BlogDataService {
       const start = Math.max(0, perPage * currentPage - perPage);
       return allData.blogs.slice(start, perPage + start);
     }
-    if (
-      this.allBlogCache[currentPage] &&
-      this.allBlogCache[currentPage][perPage]
-    )
-      return this.allBlogCache[currentPage][perPage];
-    const url = `http://localhost:3001/blogs?_page=${currentPage}&_limit=${perPage}&_expand=profile`;
-    return await fetch(url, { method: "GET" })
-      .then((response) => response.json())
-      .then((response) => {
-        if (!Array.isArray(this.allBlogCache[currentPage]))
-          this.allBlogCache[currentPage] = [];
-        this.allBlogCache[currentPage][perPage] = response;
-        return response;
-      });
+    return []
   }
   async getOne(id: string) {
     if (allData.blogs) {
@@ -195,16 +183,15 @@ class BlogDataService {
       }
       return [allData.blogs[0]];
     }
-    if (this.blogCache[parseInt(id)]) return [this.blogCache[parseInt(id)]];
-    return await fetch(
-      "http://localhost:3001/blogs/" + id + "?_embed=profile",
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        this.blogCache[parseInt(id)] = response;
-        return [response];
-      });
+    return []
+  }
+  getCountByProfile(id: number) {
+    
+    if (allData.blogs) {
+      // eslint-disable-next-line eqeqeq
+      return allData.blogs.filter(x => x.profileId == id).length
+    }
+    return 0
   }
   async getProfileById(id: number) {
     if (this.profilesCache[id]) return this.profilesCache[id];
@@ -229,47 +216,24 @@ class BlogDataService {
       const start = Math.max(0, perPage * currentPage - perPage);
       return results.slice(start, perPage + start);
     }
-    if (allData.profiles) return allData.profiles[0];
-    return await fetch(
-      `http://localhost:3001/blogs?profileId=${id}&_expand=profile`,
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        return response;
-      });
+    return []
   }
   async getProfiles() {
-    return await fetch("http://localhost:3001/profiles")
-      .then((response) => response.json())
-      .then((response) => response);
+    return allData.profiles
   }
   async getCommentsByBlog(id: number) {
     if (allData.comments) {
-      let results = [];
+      let results: Comment[] = [];
       for (let i = 0; i < allData.comments.length; i++) {
         if (allData.comments[i].blogId === id) {
           const comment = allData.comments[i];
-          comment.profile = (await this.getProfileById(comment.profileId)) as {
-            id: number;
-            name: string;
-          };
+          comment.profile = (await this.getProfileById(comment.profileId)) as Profile;
           results.push(comment);
         }
       }
       return results;
     }
-    if (this.commentsCache[id] && Array.isArray(this.commentsCache[id])) {
-      return this.commentsCache[id];
-    }
-    return await fetch(
-      `http://localhost:3001/comments?blogId=${id}&_expand=profile`
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        this.commentsCache[id] = response;
-        return response;
-      });
+    return []
   }
 }
 export const BlogService = new BlogDataService();
