@@ -10,8 +10,8 @@ import {
 import * as ReactDOMClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import { Provider } from "react-redux";
-import { setTotal, store, useAppDispatch } from "./store";
+import { Provider, useSelector } from "react-redux";
+import { selectTotal, setTotal, store, useAppDispatch } from "./store";
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from "./components";
 import { BlogService } from "./services/BlogService";
 import { About } from "./components/About";
@@ -27,13 +27,15 @@ const router = createHashRouter([
   {
     path: "/",
     Component() {
-      const dispatch = useAppDispatch();
-
+      const dispatch = useAppDispatch(),
+        total = useSelector(selectTotal)
       useEffect(() => {
-        BlogService.getAll(1000, 1).then((response) => {
-          dispatch(setTotal(response.length));
-        });
-      }, [dispatch]);
+        if (total === 0) {
+          BlogService.getAll(1000, 1).then((response) => {
+            dispatch(setTotal(response.length));
+          });
+        }
+      }, [dispatch, total]);
       let navigation = useNavigation();
       return (
         <>
