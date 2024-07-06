@@ -15,9 +15,15 @@ import { selectTotal, setTotal, store, useAppDispatch } from "./store";
 import { Nav, BlogPosts, Authors, Login, Blog, Footer } from "./components";
 import { BlogService } from "./services/BlogService";
 import { About } from "./components/About";
+import { Sitemap } from "./components/Sitemap";
+import { Contact } from "./components/Contact";
+import { FAQ } from "./components/FAQ";
 
 const routes = [
   { path: "about", element: <About /> },
+  { path: "sitemap", element: <Sitemap /> },
+  { path: "contact", element: <Contact /> },
+  { path: "faq", element: <FAQ /> },
   { path: "login", element: <Login /> },
   { path: "authors/page?/:page?", element: <Authors /> },
   { path: "blog/:id", element: <Blog /> },
@@ -28,7 +34,7 @@ const router = createHashRouter([
     path: "/",
     Component() {
       const dispatch = useAppDispatch(),
-        total = useSelector(selectTotal)
+        total = useSelector(selectTotal);
       useEffect(() => {
         if (total === 0) {
           BlogService.getAll(1000, 1).then((response) => {

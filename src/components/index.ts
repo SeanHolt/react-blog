@@ -6,4 +6,6 @@ export { Footer } from './Footer'
 export { Login } from './Login'
 export { Nav } from './Nav'
 export { Pagination } from './Pagination'
-
+export { About } from './About'
+export { Contact } from './Contact'
+export { Sitemap } from './Sitemap'
