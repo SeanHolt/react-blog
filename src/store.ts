@@ -47,8 +47,15 @@ export const store = configureStore({
     app: appStore.reducer,
   },
 });
-export const { setPage, prevPage, nextPage, setAuthor, setBlogId, setTotal } =
-  appStore.actions;
+export const {
+  setPage,
+  prevPage,
+  nextPage,
+  setAuthor,
+  setBlogId,
+  setTotal,
+  setPerPage,
+} = appStore.actions;
 export type RootState = ReturnType<typeof store.getState>;
 
 export const selectCurrentPage = (state: RootState) => state.app.currentPage;

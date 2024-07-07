@@ -10,7 +10,7 @@ export type Blog = {
     name?: string;
   };
 };
-export type BlogProps = {
+export type BlogPostsProps = {
   id?: string;
   author?: string;
 };

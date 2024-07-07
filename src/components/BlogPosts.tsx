@@ -5,11 +5,11 @@ import { Pagination } from "./Pagination";
 import { useSelector } from "react-redux";
 import { selectCurrentPage, selectPerPage } from "../store";
 import { useBlogStates } from "./Blog";
-import { Blog, BlogProps } from "../types/blog";
+import { Blog, BlogPostsProps } from "../types/blog";
 import { RDS } from "../types/base";
 
 export const retrieveBlogs = (
-  props: BlogProps,
+  props: BlogPostsProps,
   perPage: number,
   currentPage: number,
   totalBlogs: number = 15,
@@ -55,7 +55,7 @@ export const retrieveBlogs = (
   }
 };
 
-export function BlogPosts(props: BlogProps) {
+export function BlogPosts(props: BlogPostsProps) {
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
   const { blogs, setBlogs, loading, setLoading, error, setError } =

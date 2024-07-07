@@ -1,7 +1,7 @@
-import { Blog as BlogItem } from '../types/blog'
+import { Blog as BlogItem } from "../types/blog";
 import { Author } from "../types/author";
-import { Profile } from '../types/profile'
-import { Comment } from '../types/comment'
+import { Profile } from "../types/profile";
+import { Comment } from "../types/comment";
 
 const allData: { blogs: BlogItem[]; comments: Comment[]; profiles: Author[] } =
   {
@@ -163,7 +163,7 @@ class BlogDataService {
       const start = Math.max(0, perPage * currentPage - perPage);
       return allData.blogs.slice(start, perPage + start);
     }
-    return []
+    return [];
   }
   async getOne(id: string) {
     if (allData.blogs) {
@@ -174,15 +174,14 @@ class BlogDataService {
       }
       return [allData.blogs[0]];
     }
-    return []
+    return [];
   }
   getCountByProfile(id: number) {
-    
     if (allData.blogs) {
       // eslint-disable-next-line eqeqeq
-      return allData.blogs.filter(x => x.profileId == id).length
+      return allData.blogs.filter((x) => x.profileId == id).length;
     }
-    return 0
+    return 0;
   }
   async getProfileById(id: number) {
     if (this.profilesCache[id]) return this.profilesCache[id];
@@ -207,10 +206,10 @@ class BlogDataService {
       const start = Math.max(0, perPage * currentPage - perPage);
       return results.slice(start, perPage + start);
     }
-    return []
+    return [];
   }
   async getProfiles() {
-    return allData.profiles
+    return allData.profiles;
   }
   async getCommentsByBlog(id: number) {
     if (allData.comments) {
@@ -218,13 +217,15 @@ class BlogDataService {
       for (let i = 0; i < allData.comments.length; i++) {
         if (allData.comments[i].blogId === id) {
           const comment = allData.comments[i];
-          comment.profile = (await this.getProfileById(comment.profileId)) as Profile;
+          comment.profile = (await this.getProfileById(
+            comment.profileId
+          )) as Profile;
           results.push(comment);
         }
       }
       return results;
     }
-    return []
+    return [];
   }
 }
 export const BlogService = new BlogDataService();

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BlogService } from "../services/BlogService";
 import { useParams } from "react-router-dom";
-import { Comment } from '../types/comment'
+import { Comment } from "../types/comment";
 
 export function Comments() {
   const props = useParams();
@@ -18,15 +18,19 @@ export function Comments() {
   }, []);
   return (
     <>
-      <h4 className="mt-4">Comments</h4>
-      {comments.map((comm: Comment) => (
-        <div key={comm.id} className="card w-100">
-          <div className="d-flex p-2">
-            <div className="card-text flex-fill">{comm.title}</div>
-            <div className="card-text flex-fill">{comm.profile?.name}</div>
-          </div>
-        </div>
-      ))}
+      {comments.length > 0 ? (
+        <>
+          <h4 className="mt-4">Comments</h4>
+          {comments.map((comm: Comment) => (
+            <div key={comm.id} className="card w-100">
+              <div className="d-flex p-2">
+                <div className="card-text flex-fill">{comm.title}</div>
+                <div className="card-text flex-fill">{comm.profile?.name}</div>
+              </div>
+            </div>
+          ))}
+        </>
+      ) : null}
     </>
   );
 }
