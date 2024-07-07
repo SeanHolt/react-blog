@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlogService } from "../services/BlogService";
+import { Author } from "../types/author";
 
-export interface Author {
-  id: number;
-  name: string;
-}
 export function Authors() {
   const [authors, setAuthors] = useState<Author[]>([]);
   useEffect(() => {

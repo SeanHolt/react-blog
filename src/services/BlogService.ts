@@ -1,17 +1,8 @@
-import { BlogItem } from "../components";
-import { Author } from "../components/Authors";
+import { Blog as BlogItem } from '../types/blog'
+import { Author } from "../types/author";
+import { Profile } from '../types/profile'
+import { Comment } from '../types/comment'
 
-export interface Comment {
-  profile?: Profile;
-  id: number;
-  title: string;
-  profileId: number;
-  blogId: number;
-}
-export interface Profile {
-  id?: number;
-  name?: string;
-}
 const allData: { blogs: BlogItem[]; comments: Comment[]; profiles: Author[] } =
   {
     blogs: [

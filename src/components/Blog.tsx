@@ -2,17 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { selectCurrentPage, selectPerPage } from "../store";
-import { retrieveBlogs, Blog as BlogItem, RDS } from "./BlogPosts";
+import { retrieveBlogs } from "./BlogPosts";
 import { Comments } from "./Comments";
+import { UseBlogStatesType, Blog as BlogItem } from "../types/blog";
 
-export type UseBlogStatesType = {
-  blogs: BlogItem[];
-  setBlogs: RDS<BlogItem[]>;
-  loading: boolean;
-  setLoading: RDS<boolean>;
-  error: boolean;
-  setError: RDS<boolean>;
-};
 export function useBlogStates(): UseBlogStatesType {
   const [blogs, setBlogs] = React.useState<BlogItem[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);

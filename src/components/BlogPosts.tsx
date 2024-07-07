@@ -5,22 +5,8 @@ import { Pagination } from "./Pagination";
 import { useSelector } from "react-redux";
 import { selectCurrentPage, selectPerPage } from "../store";
 import { useBlogStates } from "./Blog";
-
-export type Blog = {
-  id: number;
-  title: string;
-  content: string;
-  profileId: number;
-  profile?: {
-    id?: number;
-    name?: string;
-  };
-};
-export type BlogProps = {
-  id?: string;
-  author?: string;
-};
-export type RDS<T> = React.Dispatch<React.SetStateAction<T>>;
+import { Blog, BlogProps } from "../types/blog";
+import { RDS } from "../types/base";
 
 export const retrieveBlogs = (
   props: BlogProps,
