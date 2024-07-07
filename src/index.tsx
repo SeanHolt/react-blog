@@ -12,12 +12,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import { Provider, useSelector } from "react-redux";
 import { selectTotal, setTotal, store, useAppDispatch } from "./store";
-import { Nav, BlogPosts, Authors, Login, Blog, Footer } from "./components";
+import { Nav, BlogPosts, Authors, Login, Blog, Footer, About, Sitemap, Contact, FAQ } from "./components";
 import { BlogService } from "./services/BlogService";
-import { About } from "./components/About";
-import { Sitemap } from "./components/Sitemap";
-import { Contact } from "./components/Contact";
-import { FAQ } from "./components/FAQ";
 
 const routes = [
   { path: "about", element: <About /> },
