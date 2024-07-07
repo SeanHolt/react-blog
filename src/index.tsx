@@ -22,6 +22,7 @@ import {
   About,
   Sitemap,
   Contact,
+  Comment,
   FAQ,
 } from "./components";
 import { BlogService } from "./services/BlogService";
@@ -70,6 +71,13 @@ const router = createHashRouter([
         element: <BlogPosts />,
       },
       ...routes,
+      {
+        path: "comment/:id",
+        Component() {
+          let params = useParams()
+          return (<Comment id={params.id} />)
+        }
+      },
       {
         path: "author/:id",
         Component() {

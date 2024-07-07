@@ -1,7 +1,7 @@
 import { Profile } from "./profile";
 
-export interface Comment {
-    profile?: Profile;
+export interface CommentType {
+    profile: Profile;
     id: number;
     title: string;
     profileId: number;
