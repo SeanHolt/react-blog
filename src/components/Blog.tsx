@@ -5,6 +5,7 @@ import { selectCurrentPage, selectPerPage } from "../store";
 import { retrieveBlogs } from "./BlogPosts";
 import { Comments } from "./Comments";
 import { UseBlogStatesType, Blog as BlogItem } from "../types/blog";
+import parser from 'html-react-parser'
 
 export function useBlogStates(): UseBlogStatesType {
   const [blogs, setBlogs] = React.useState<BlogItem[]>([]);
@@ -50,7 +51,7 @@ export function Blog() {
             ) : (
               <p className="error">Error</p>
             )}
-            <div className="blog-content">{blog.content}</div>
+            <div className="blog-content">{parser(blog.content)}</div>
           </div>
           <Comments />
         </div>

@@ -7,4 +7,3 @@ export interface Comment {
     profileId: number;
     blogId: number;
   }
-  
