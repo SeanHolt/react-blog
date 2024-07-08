@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { redirect } from "react-router-dom";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDiQohmQoqWuSVwz0b33VQ-c5vCoyNJVPc",
   authDomain: "react-test-b3315.firebaseapp.com",
@@ -15,9 +15,6 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const auth = firebaseApp.auth();
 
-auth.onAuthStateChanged((user) => {
-  if (user) redirect("/");
-});
 const provider = new firebase.auth.GoogleAuthProvider();
 export { useAuthState } from "react-firebase-hooks/auth";
 export { auth, provider, firebaseApp };

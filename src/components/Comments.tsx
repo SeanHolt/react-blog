@@ -23,9 +23,10 @@ export function Comments() {
         <>
           <h4 className="mt-4">Comments</h4>
           {comments.map((comm: CommentType) => (
-            <div key={comm.id} >
-            <Comment comment={comm} />
-          </div>))}
+            <div key={comm.id}>
+              <Comment comment={comm} />
+            </div>
+          ))}
         </>
       ) : null}
     </>

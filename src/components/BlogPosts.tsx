@@ -8,6 +8,16 @@ import { useBlogStates } from "./Blog";
 import { Blog, BlogPostsProps } from "../types/blog";
 import { RDS } from "../types/base";
 
+/**
+ * 
+ * @param props BlogPostsProps
+ * @param perPage number
+ * @param currentPage number
+ * @param totalBlogs number
+ * @param setBlogs RDS<Blog[]>
+ * @param setLoading RDS<boolean>
+ * @param setError RDS<boolean>
+ */
 export const retrieveBlogs = (
   props: BlogPostsProps,
   perPage: number,
@@ -41,7 +51,7 @@ export const retrieveBlogs = (
           setError(true);
         });
     } else {
-      BlogService.getAll(perPage, currentPage, totalBlogs)
+      BlogService.getAll(perPage, currentPage)
         .then((response: Blog[]) => {
           setBlogs(response);
           setLoading(false);

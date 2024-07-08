@@ -42,6 +42,9 @@ export function Nav(): React.ReactElement {
                 </button>
               </li>
             )}
+            <li className="nav-item">
+              <Link className="nav-link" to="/create-blog">Create Blog</Link>
+            </li>
           </ul>
         </div>
       </div>
