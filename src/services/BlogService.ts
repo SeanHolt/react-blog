@@ -163,7 +163,7 @@ class BlogDataService {
       allData.blogs.push(item)
       return allData.blogs[allData.blogs.length - 1]
     }
-    return {id: 1} as BlogItem
+    return {id: 1, title:'Error Title', content: 'Error Content', profileId: 0} as BlogItem
   }
   async getAll(
     perPage: number = 10,

@@ -1,10 +1,9 @@
 import reportWebVitals from "./reportWebVitals";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   createHashRouter,
   Outlet,
   RouterProvider,
-  useNavigate,
   useNavigation,
   useParams,
 } from "react-router-dom";
@@ -26,8 +25,8 @@ import {
   Comment,
   FAQ,
 } from "./components";
-import { Blog as BlogItem } from './types/blog'
 import { BlogService } from "./services/BlogService";
+import { CreateBlog } from "./components/CreateBlog";
 
 const routes = [
   { path: "about", element: <About /> },
@@ -37,6 +36,7 @@ const routes = [
   { path: "login", element: <Login /> },
   { path: "authors/page?/:page?", element: <Authors /> },
   { path: "blog/:id", element: <Blog /> },
+  { path: "create-blog", element: <CreateBlog /> },
 ];
 
 const router = createHashRouter([
@@ -74,39 +74,11 @@ const router = createHashRouter([
       },
       ...routes,
       {
-        path: "create-blog",
-        Component() {
-          const navigate = useNavigate()
-          const [title, setTitle] = useState<string>('')
-          const [content, setContent] = useState<string>('')
-          const onCreate = () => {
-            const blog = BlogService.addBlog({title: title, content: content, profileId: 1} as BlogItem)
-            setTitle('')
-            setContent('')
-            navigate("/blog/" + blog.id)
-          }
-          return (<>
-          <p>Create Blog</p>
-          <div className="mb-3">
-            <label htmlFor="formTitle" className="form-label">Title</label>
-            <input type="text" className="form-control" id="formTitle" placeholder="Title" onChange={(e) => { setTitle(e.target.value)}} value={title} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="formContent" className="form-label">Content</label>
-            <input type="text" className="form-control" id="formContent" placeholder="Content" onChange={(e) => { setContent(e.target.value)}} value={content} />
-          </div>
-          <div className="mb-3">
-            <button onClick={onCreate}>Create</button>
-          </div>
-          </>)
-        }
-      },
-      {
         path: "comment/:id",
         Component() {
-          let params = useParams()
-          return (<Comment id={params.id} />)
-        }
+          let params = useParams();
+          return <Comment id={params.id} />;
+        },
       },
       {
         path: "author/:id",
