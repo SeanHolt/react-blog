@@ -14,11 +14,10 @@ export function Authors() {
     <>
       <h1>Authors</h1>
       {authors.map((author: Author) => {
-        let count = BlogService.getCountByProfile(author.id)
         return (
           <h3 key={author.id}>
             <Link to={"/author/" + author.id} className="item-link">
-              {author.name} ({count})
+              {author.name} ({author.count})
             </Link>
           </h3>
         );

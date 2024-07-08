@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: "react-test-b3315.appspot.com",
   messagingSenderId: "103930812840",
   appId: "1:103930812840:web:942459fd41f571307f659d",
-  measurementId: "G-1PS4FYX20E"
+  measurementId: "G-1PS4FYX20E",
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);

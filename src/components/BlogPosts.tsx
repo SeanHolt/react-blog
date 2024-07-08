@@ -9,7 +9,7 @@ import { Blog, BlogPostsProps } from "../types/blog";
 import { RDS } from "../types/base";
 
 /**
- * 
+ *
  * @param props BlogPostsProps
  * @param perPage number
  * @param currentPage number

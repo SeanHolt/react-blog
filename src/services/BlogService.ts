@@ -159,16 +159,18 @@ class BlogDataService {
 
   addBlog(item: BlogItem) {
     if (allData.blogs) {
-      item.id = allData.blogs.length + 1
-      allData.blogs.push(item)
-      return allData.blogs[allData.blogs.length - 1]
+      item.id = allData.blogs.length + 1;
+      allData.blogs.push(item);
+      return allData.blogs[allData.blogs.length - 1];
     }
-    return {id: 1, title:'Error Title', content: 'Error Content', profileId: 0} as BlogItem
+    return {
+      id: 1,
+      title: "Error Title",
+      content: "Error Content",
+      profileId: 0,
+    } as BlogItem;
   }
-  async getAll(
-    perPage: number = 10,
-    currentPage: number = 1,
-  ) {
+  async getAll(perPage: number = 10, currentPage: number = 1) {
     if (allData.blogs) {
       for (let i = 0; i < allData.blogs.length; i++) {
         if (this.profilesCache[allData.blogs[i].profileId]) {
@@ -230,6 +232,13 @@ class BlogDataService {
     return [];
   }
   async getProfiles() {
+    if (allData.profiles && !allData.profiles[0].count) {
+      for (let i = 0; i < allData.profiles.length; i++) {
+        allData.profiles[i].count = this.getCountByProfile(
+          allData.profiles[i].id
+        );
+      }
+    }
     return allData.profiles;
   }
   async getCommentById(id: number) {
