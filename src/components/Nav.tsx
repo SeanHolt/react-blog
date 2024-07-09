@@ -6,13 +6,13 @@ import img from "../logo.svg";
 export function Nav(): React.ReactElement {
   const [user] = useAuthState(auth);
   return (
-    <nav className="navbar nav-pills navbar-expand-lg navbar-dark bg-dark mb-3">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <Link className="navbar-brand" to="/">
             <img src={img} alt="brand" width="30" height="21" />
           </Link>
-          <ul className="navbar-nav nav-pills me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/">
                 Home
