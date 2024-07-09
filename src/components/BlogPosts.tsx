@@ -7,6 +7,7 @@ import {
   selectPerPage,
   selectTotal,
   setPage,
+  setTotal,
   useAppDispatch,
 } from "../store";
 import { useBlogStates } from "./Blog";
@@ -28,10 +29,16 @@ export const retrieveBlogs = (
   currentPage: number,
   setBlogs: RDS<Blog[]>,
   setLoading: RDS<boolean>,
-  setError: RDS<boolean>
+  setError: RDS<boolean>,
+  setTotal: (numb: number) => void
 ) => {
   if (props.author && props.author !== null) {
-    BlogService.getByProfileId(parseInt(props.author), currentPage, perPage)
+    BlogService.getByProfileId(
+      parseInt(props.author),
+      currentPage,
+      perPage,
+      setTotal
+    )
       .then((response: Blog[]) => {
         setBlogs(response);
         setLoading(false);
@@ -40,27 +47,31 @@ export const retrieveBlogs = (
         console.log("profileId error = ", error);
         setError(true);
         setLoading(false);
+        setTotal(0);
       });
   } else {
     if (props.id && props.id !== null) {
       BlogService.getOne(props.id)
         .then((response: Blog[]) => {
           setBlogs(response);
+          setTotal(response.length);
           setLoading(false);
         })
         .catch((error) => {
           console.log("getOne error : ", error);
           setLoading(false);
+          setTotal(0);
           setError(true);
         });
     } else {
-      BlogService.getAll(perPage, currentPage)
+      BlogService.getAll(perPage, currentPage, setTotal)
         .then((response: Blog[]) => {
           setBlogs(response);
           setLoading(false);
         })
         .catch((error) => {
           console.log("getAll error = ", error);
+          setTotal(0);
           setError(true);
           setLoading(false);
         });
@@ -69,16 +80,17 @@ export const retrieveBlogs = (
 };
 
 export function BlogPosts(props: BlogPostsProps) {
-    const [ currentPage, perPage, total ] = [
-        useSelector(selectCurrentPage),
-        useSelector(selectPerPage),
-        useSelector(selectTotal)
-    ]
   const dispatch = useAppDispatch();
+  const [currentPage, perPage, total] = [
+    useSelector(selectCurrentPage),
+    useSelector(selectPerPage),
+    useSelector(selectTotal),
+  ];
   const { blogs, setBlogs, loading, setLoading, error, setError } =
     useBlogStates();
-
-  BlogService.getBlogCount();
+  const setTheTotal = (numb: number) => {
+    dispatch(setTotal(numb));
+  };
   React.useEffect(() => {
     retrieveBlogs(
       props,
@@ -86,9 +98,9 @@ export function BlogPosts(props: BlogPostsProps) {
       currentPage,
       setBlogs,
       setLoading,
-      setError
+      setError,
+      setTheTotal
     );
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, perPage, currentPage]);
   const pages = Math.ceil(total / perPage);

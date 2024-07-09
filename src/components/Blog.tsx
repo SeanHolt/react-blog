@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { selectCurrentPage, selectPerPage } from "../store";
+import { selectCurrentPage, selectPerPage, setTotal, useAppDispatch } from "../store";
 import { retrieveBlogs } from "./BlogPosts";
 import { Comments } from "./Comments";
 import { UseBlogStatesType, Blog as BlogItem } from "../types";
@@ -14,12 +14,15 @@ export function useBlogStates(): UseBlogStatesType {
   return { blogs, setBlogs, loading, setLoading, error, setError };
 }
 export function Blog() {
+    const dispatch = useAppDispatch();
   let params = useParams();
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
   const { blogs, setBlogs, loading, setLoading, error, setError } =
     useBlogStates();
-
+    const setTheTotal = (numb: number) => {
+        dispatch(setTotal(numb))
+    }
   useEffect(() => {
     retrieveBlogs(
       params,
@@ -27,7 +30,8 @@ export function Blog() {
       currentPage,
       setBlogs,
       setLoading,
-      setError
+      setError,
+      setTheTotal
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

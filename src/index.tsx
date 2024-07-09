@@ -13,7 +13,6 @@ import "./App.css";
 import { Provider } from "react-redux";
 import {
   setPage,
-  setTotal,
   store,
   useAppDispatch,
 } from "./store";
@@ -30,7 +29,6 @@ import {
   Comment,
   FAQ,
 } from "./components";
-import { BlogService } from "./services/BlogService";
 import { CreateBlog } from "./components/CreateBlog";
 
 const routes = [
@@ -51,7 +49,6 @@ const router = createHashRouter([
       const dispatch = useAppDispatch();
       let navigation = useNavigation();
       dispatch(setPage(1));
-      dispatch(setTotal(BlogService.getBlogCount()));
       return (
         <>
           {navigation.state !== "idle" ? (

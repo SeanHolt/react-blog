@@ -290,7 +290,7 @@ class BlogDataService {
       profileId: 0,
     } as BlogItem;
   }
-  async getAll(perPage: number = 10, currentPage: number = 0) {
+  async getAll(perPage: number = 10, currentPage: number = 0, setTotal: (numb: number) => void) {
     if (allData.blogs) {
       for (let i = 0; i < allData.blogs.length; i++) {
         if (this.profilesCache[allData.blogs[i].profileId]) {
@@ -302,6 +302,7 @@ class BlogDataService {
           )) as Author;
         }
       }
+      setTotal(allData.blogs.length)
       const start = perPage * (currentPage - 1);
       const end =
         currentPage > 0 ? perPage * currentPage : perPage * currentPage + start;
@@ -343,7 +344,12 @@ class BlogDataService {
     }
     return {} as Profile;
   }
-  async getByProfileId(id: number, currentPage: number, perPage: number) {
+  async getByProfileId(
+    id: number,
+    currentPage: number,
+    perPage: number,
+    setTotal: (numb: number) => void
+  ) {
     if (allData.blogs) {
       let results = [];
       for (let i = 0; i < allData.blogs.length; i++) {
@@ -351,6 +357,7 @@ class BlogDataService {
           results.push(allData.blogs[i]);
         }
       }
+      setTotal(results.length)
       const start = Math.max(0, perPage * currentPage - perPage);
       return results.slice(start, perPage + start);
     }
