@@ -4,15 +4,14 @@ import { auth, useAuthState } from "../firebase";
 import img from "../logo.svg";
 
 export function Nav(): React.ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, _loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   return (
     <nav className="navbar nav-pills navbar-expand-lg navbar-dark bg-dark mb-3">
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             <img src={img} alt="brand" width="30" height="21" />
-          </a>
+          </Link>
           <ul className="navbar-nav nav-pills me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/">
@@ -29,7 +28,6 @@ export function Nav(): React.ReactElement {
                 <Link
                   className="nav-link"
                   to="/create-blog"
-                  unstable_viewTransition={true}
                 >
                   Create Blog
                 </Link>
@@ -44,7 +42,7 @@ export function Nav(): React.ReactElement {
                 <button
                   className="nav-link"
                   onClick={() => {
-                    auth.signOut();
+                    auth ? auth.signOut() : console.log('Error logging you out!');
                   }}
                 >
                   Logout
