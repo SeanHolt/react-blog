@@ -28,8 +28,8 @@ import {
   Contact,
   Comment,
   FAQ,
+  CreateBlog,
 } from "./components";
-import { CreateBlog } from "./components/CreateBlog";
 
 const routes = [
   { path: "about", element: <About /> },

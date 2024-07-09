@@ -23,7 +23,7 @@ import ReactPaginate from "react-paginate";
  * @param setLoading RDS<boolean>
  * @param setError RDS<boolean>
  */
-export const retrieveBlogs = (
+export function retrieveBlogs(
   props: BlogPostsProps,
   perPage: number,
   currentPage: number,
@@ -31,7 +31,7 @@ export const retrieveBlogs = (
   setLoading: RDS<boolean>,
   setError: RDS<boolean>,
   setTotal: (numb: number) => void
-) => {
+) {
   if (props.author && props.author !== null) {
     BlogService.getByProfileId(
       parseInt(props.author),
@@ -49,35 +49,33 @@ export const retrieveBlogs = (
         setLoading(false);
         setTotal(0);
       });
+  } else if (props.id && props.id !== null) {
+    BlogService.getOne(props.id)
+      .then((response: Blog[]) => {
+        setBlogs(response);
+        setTotal(response.length);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("getOne error : ", error);
+        setLoading(false);
+        setTotal(0);
+        setError(true);
+      });
   } else {
-    if (props.id && props.id !== null) {
-      BlogService.getOne(props.id)
-        .then((response: Blog[]) => {
-          setBlogs(response);
-          setTotal(response.length);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log("getOne error : ", error);
-          setLoading(false);
-          setTotal(0);
-          setError(true);
-        });
-    } else {
-      BlogService.getAll(perPage, currentPage, setTotal)
-        .then((response: Blog[]) => {
-          setBlogs(response);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log("getAll error = ", error);
-          setTotal(0);
-          setError(true);
-          setLoading(false);
-        });
-    }
+    BlogService.getAll(perPage, currentPage, setTotal)
+      .then((response: Blog[]) => {
+        setBlogs(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("getAll error = ", error);
+        setTotal(0);
+        setError(true);
+        setLoading(false);
+      });
   }
-};
+}
 
 export function BlogPosts(props: BlogPostsProps) {
   const dispatch = useAppDispatch();

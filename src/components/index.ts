@@ -10,3 +10,4 @@ export { Contact } from "./Contact";
 export { Sitemap } from "./Sitemap";
 export { FAQ } from "./FAQ";
 export { Comment } from "./Comment";
+export { CreateBlog } from "./CreateBlog";
