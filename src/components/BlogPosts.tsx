@@ -10,8 +10,7 @@ import {
   useAppDispatch,
 } from "../store";
 import { useBlogStates } from "./Blog";
-import { Blog, BlogPostsProps } from "../types/blog";
-import { RDS } from "../types/base";
+import { Blog, BlogPostsProps, RDS } from "../types";
 import ReactPaginate from "react-paginate";
 
 /**

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { selectCurrentPage, selectPerPage } from "../store";
 import { retrieveBlogs } from "./BlogPosts";
 import { Comments } from "./Comments";
-import { UseBlogStatesType, Blog as BlogItem } from "../types/blog";
+import { UseBlogStatesType, Blog as BlogItem } from "../types";
 import parser from "html-react-parser";
 
 export function useBlogStates(): UseBlogStatesType {

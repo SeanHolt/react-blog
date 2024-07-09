@@ -1,7 +1,5 @@
-import { Blog as BlogItem } from "../types/blog";
-import { Author } from "../types/author";
-import { Profile } from "../types/profile";
-import { CommentType } from "../types/comment";
+
+import { Blog as BlogItem, Author, Profile, CommentType } from '../types'
 
 const allData: {
   blogs: BlogItem[];

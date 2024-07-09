@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlogService } from "../services/BlogService";
-import { Blog as BlogItem } from "../types/blog";
+import { Blog as BlogItem } from "../types";
 
 export function CreateBlog() {
   const navigate = useNavigate();

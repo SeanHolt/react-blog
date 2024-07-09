@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BlogService } from "../services/BlogService";
 import { useParams } from "react-router-dom";
-import { CommentType } from "../types/comment";
+import { CommentType } from "../types";
 import { Comment } from "./Comment";
 
 export function Comments() {

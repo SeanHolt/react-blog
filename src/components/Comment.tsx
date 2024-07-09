@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CommentType } from "../types/comment";
+import { CommentType } from "../types";
 import { BlogService } from "../services/BlogService";
 import { Link } from "react-router-dom";
 
