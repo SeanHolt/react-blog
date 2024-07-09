@@ -283,8 +283,8 @@ class BlogDataService {
   addBlog(item: BlogItem) {
     if (allData.blogs) {
       item.id = allData.blogs.length + 1;
-      allData.blogs.push(item);
-      return allData.blogs[allData.blogs.length - 1];
+      let idx = allData.blogs.push(item);
+      return allData.blogs[idx - 1];
     }
     return {
       id: 1,
@@ -315,6 +315,7 @@ class BlogDataService {
     if (allData.blogs) {
       for (let i = 0; i < allData.blogs.length; i++) {
         if (allData.blogs[i].id === parseInt(id)) {
+          allData.blogs[i].profile = await this.getProfileById(allData.blogs[i].profileId)
           return [allData.blogs[i]];
         }
       }
