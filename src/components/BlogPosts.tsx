@@ -1,12 +1,18 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { BlogService } from "../services/BlogService";
-import { Pagination } from "./Pagination";
 import { useSelector } from "react-redux";
-import { selectCurrentPage, selectPerPage } from "../store";
+import {
+  selectCurrentPage,
+  selectPerPage,
+  selectTotal,
+  setPage,
+  useAppDispatch,
+} from "../store";
 import { useBlogStates } from "./Blog";
 import { Blog, BlogPostsProps } from "../types/blog";
 import { RDS } from "../types/base";
+import ReactPaginate from "react-paginate";
 
 /**
  *
@@ -68,21 +74,30 @@ export const retrieveBlogs = (
 export function BlogPosts(props: BlogPostsProps) {
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
+  const total = useSelector(selectTotal);
+  const dispatch = useAppDispatch();
   const { blogs, setBlogs, loading, setLoading, error, setError } =
     useBlogStates();
 
+  BlogService.getBlogCount();
   React.useEffect(() => {
     retrieveBlogs(
       props,
       perPage,
       currentPage,
-      15,
+      total,
       setBlogs,
       setLoading,
       setError
     );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, perPage, currentPage]);
+  const pages = Math.ceil(total / perPage);
+  const handlePageClick = (event: { selected: number }) => {
+    dispatch(setPage(event.selected + 1));
+  };
+  const hrefBuilder = () => {};
   return (
     <>
       {loading ? (
@@ -108,7 +123,21 @@ export function BlogPosts(props: BlogPostsProps) {
               </div>
             </div>
           ))}
-          <Pagination />
+          <ReactPaginate
+            pageCount={pages}
+            hrefBuilder={hrefBuilder}
+            onPageChange={handlePageClick}
+            className="pagination"
+            activeLinkClassName="page-link"
+            activeClassName="page-item"
+            nextClassName="page-item"
+            previousClassName="page-item"
+            pageClassName="page-item"
+            containerClassName="pagination"
+            previousLinkClassName="page-link"
+            nextLinkClassName="page-link"
+            pageLinkClassName="page-link"
+          />
         </>
       )}
     </>

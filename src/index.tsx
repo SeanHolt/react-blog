@@ -1,5 +1,5 @@
 import reportWebVitals from "./reportWebVitals";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   createHashRouter,
   Outlet,
@@ -10,8 +10,8 @@ import {
 import * as ReactDOMClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import { Provider, useSelector } from "react-redux";
-import { selectTotal, setTotal, store, useAppDispatch } from "./store";
+import { Provider } from "react-redux";
+import { setPage, setTotal, store, useAppDispatch } from "./store";
 import {
   Nav,
   BlogPosts,
@@ -43,16 +43,11 @@ const router = createHashRouter([
   {
     path: "/",
     Component() {
-      const dispatch = useAppDispatch(),
-        total = useSelector(selectTotal);
-      useEffect(() => {
-        if (total === 0) {
-          BlogService.getAll(1000, 1).then((response) => {
-            dispatch(setTotal(response.length));
-          });
-        }
-      }, [dispatch, total]);
+      const dispatch = useAppDispatch()
       let navigation = useNavigation();
+      dispatch(setPage(1))
+      dispatch(setTotal(BlogService.getBlogCount()))
+
       return (
         <>
           {navigation.state !== "idle" ? (
