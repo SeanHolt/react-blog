@@ -354,6 +354,7 @@ class BlogDataService {
       let results = [];
       for (let i = 0; i < allData.blogs.length; i++) {
         if (allData.blogs[i].profileId === id) {
+            allData.blogs[i].profile = await this.getProfileById(allData.blogs[i].profileId)
           results.push(allData.blogs[i]);
         }
       }
