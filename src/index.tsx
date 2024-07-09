@@ -43,10 +43,10 @@ const router = createHashRouter([
   {
     path: "/",
     Component() {
-      const dispatch = useAppDispatch()
+      const dispatch = useAppDispatch();
       let navigation = useNavigation();
-      dispatch(setPage(1))
-      dispatch(setTotal(BlogService.getBlogCount()))
+      dispatch(setPage(1));
+      dispatch(setTotal(BlogService.getBlogCount()));
 
       return (
         <>

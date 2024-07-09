@@ -1,5 +1,4 @@
-
-import { Blog as BlogItem, Author, Profile, CommentType } from '../types'
+import { Blog as BlogItem, Author, Profile, CommentType } from "../types";
 
 const allData: {
   blogs: BlogItem[];
@@ -276,7 +275,7 @@ class BlogDataService {
   profilesCache: Author[] = [];
 
   getBlogCount() {
-    return allData.blogs.length
+    return allData.blogs.length;
   }
   addBlog(item: BlogItem) {
     if (allData.blogs) {
@@ -303,8 +302,9 @@ class BlogDataService {
           )) as Author;
         }
       }
-      const start = (perPage * (currentPage - 1));
-      const end = currentPage > 0 ? (perPage * currentPage) : (perPage * currentPage) + start
+      const start = perPage * (currentPage - 1);
+      const end =
+        currentPage > 0 ? perPage * currentPage : perPage * currentPage + start;
       return allData.blogs.slice(start, end);
     }
     return [];
@@ -313,7 +313,9 @@ class BlogDataService {
     if (allData.blogs) {
       for (let i = 0; i < allData.blogs.length; i++) {
         if (allData.blogs[i].id === parseInt(id)) {
-          allData.blogs[i].profile = await this.getProfileById(allData.blogs[i].profileId)
+          allData.blogs[i].profile = await this.getProfileById(
+            allData.blogs[i].profileId
+          );
           return [allData.blogs[i]];
         }
       }
