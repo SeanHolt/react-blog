@@ -25,7 +25,6 @@ export function Blog() {
       params,
       perPage,
       currentPage,
-      15,
       setBlogs,
       setLoading,
       setError

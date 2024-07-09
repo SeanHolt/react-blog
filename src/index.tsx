@@ -11,7 +11,12 @@ import * as ReactDOMClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import { Provider } from "react-redux";
-import { setPage, setTotal, store, useAppDispatch } from "./store";
+import {
+  setPage,
+  setTotal,
+  store,
+  useAppDispatch,
+} from "./store";
 import {
   Nav,
   BlogPosts,
@@ -47,7 +52,6 @@ const router = createHashRouter([
       let navigation = useNavigation();
       dispatch(setPage(1));
       dispatch(setTotal(BlogService.getBlogCount()));
-
       return (
         <>
           {navigation.state !== "idle" ? (

@@ -18,7 +18,6 @@ import ReactPaginate from "react-paginate";
  * @param props BlogPostsProps
  * @param perPage number
  * @param currentPage number
- * @param totalBlogs number
  * @param setBlogs RDS<Blog[]>
  * @param setLoading RDS<boolean>
  * @param setError RDS<boolean>
@@ -27,7 +26,6 @@ export const retrieveBlogs = (
   props: BlogPostsProps,
   perPage: number,
   currentPage: number,
-  totalBlogs: number = 15,
   setBlogs: RDS<Blog[]>,
   setLoading: RDS<boolean>,
   setError: RDS<boolean>
@@ -71,9 +69,11 @@ export const retrieveBlogs = (
 };
 
 export function BlogPosts(props: BlogPostsProps) {
-  const currentPage = useSelector(selectCurrentPage);
-  const perPage = useSelector(selectPerPage);
-  const total = useSelector(selectTotal);
+    const [ currentPage, perPage, total ] = [
+        useSelector(selectCurrentPage),
+        useSelector(selectPerPage),
+        useSelector(selectTotal)
+    ]
   const dispatch = useAppDispatch();
   const { blogs, setBlogs, loading, setLoading, error, setError } =
     useBlogStates();
@@ -84,7 +84,6 @@ export function BlogPosts(props: BlogPostsProps) {
       props,
       perPage,
       currentPage,
-      total,
       setBlogs,
       setLoading,
       setError
@@ -96,7 +95,6 @@ export function BlogPosts(props: BlogPostsProps) {
   const handlePageClick = (event: { selected: number }) => {
     dispatch(setPage(event.selected + 1));
   };
-  const hrefBuilder = () => {};
   return (
     <>
       {loading ? (
@@ -124,9 +122,8 @@ export function BlogPosts(props: BlogPostsProps) {
           ))}
           <ReactPaginate
             pageCount={pages}
-            hrefBuilder={hrefBuilder}
             onPageChange={handlePageClick}
-            className="pagination"
+            className="pagination justify-content-center"
             activeLinkClassName="page-link"
             activeClassName="page-item"
             nextClassName="page-item"
